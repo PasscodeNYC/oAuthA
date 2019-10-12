@@ -12,6 +12,13 @@
   </form>
   <button>Put Oauth stuff into params here: <a href=''>LOGIN WITH GITHUB</a></button>
 
+  <div class="g-signin2" data-onsuccess="onSignIn">
+    <form action="/googlelogin" method="POST">
+        <button name="googleOauth2" value="login">GOOGLE</button>
+    </form>
+  </div>
+
   <script src="./build/bundle.js"></script>
+
 </body>
 </html>
