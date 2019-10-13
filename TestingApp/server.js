@@ -31,6 +31,7 @@ app.get('/oauth', githubController.github(CLIENT_ID, CLIENT_SECRET, userAgent), 
 
 //Google
 //routes
+<<<<<<< HEAD
 app.get('/', (req, res, next) => {
   // oAutha.googleLogIn('please work')
   res.sendFile(path.resolve(__dirname, './index.html'), (req, res, err) => {
@@ -43,6 +44,26 @@ app.get('/redirect', googleController.getTokens, (req, res, next) => {
     if (err) console.log(err);
   });
 });
+=======
+app.get('/', (req, res, next)=>{
+    // oAutha.googleLogIn('please work')
+    res.sendFile(path.resolve(__dirname, './index.html'), (req,res,err)=>{
+        if (err) console.log(err)
+    })
+})
+
+app.get('/redirect', 
+    googleController.getTokensTest(
+        '957302849486-n5cqd4lub4me1aq49h3qpl2ctpn27fde.apps.googleusercontent.com',
+        'uWgsX7fooylNUJYJJIN0D92e',
+        'http://localhost:3000/redirect'
+    ),
+    (req, res, next)=>{
+        res.sendFile(path.resolve(__dirname, './redirect.html'), (req, res,err)=>{
+            if (err) console.log(err)
+        })
+})
+>>>>>>> 52cc6b460807b6c41f8f3b9501392387ca716d43
 
 app.get('/build/bundle.js', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, './build/bundle.js'));
@@ -53,8 +74,26 @@ app.post('/login', (req, res, next) => {
   res.redirect('/redirect');
 });
 
+<<<<<<< HEAD
 app.post('/googlelogin', googleController.getAuthUrl, (req, res, next) => {
   console.log('google post request successful - login');
+=======
+app.post('/googlelogin', 
+    googleController.getAuthTest(
+        '957302849486-n5cqd4lub4me1aq49h3qpl2ctpn27fde.apps.googleusercontent.com',
+        'uWgsX7fooylNUJYJJIN0D92e',
+        'http://localhost:3000/redirect',
+        [
+            'https://www.googleapis.com/auth/userinfo.email',
+            'https://www.googleapis.com/auth/userinfo.profile',
+        ]
+    ), 
+    (req, res, next) => {
+    console.log('google post request successful - login')
+    
+    res.redirect(`${res.locals.redirect}`)
+  });
+>>>>>>> 52cc6b460807b6c41f8f3b9501392387ca716d43
 
   res.redirect(`${res.locals.redirect}`);
 });
