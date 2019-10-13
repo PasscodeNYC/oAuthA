@@ -1,0 +1,5 @@
+{
+    "name": "oautha",
+    "version": "0.0.41",
+    "main" : "oAuthModule.js"
+}
