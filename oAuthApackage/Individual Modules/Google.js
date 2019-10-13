@@ -26,7 +26,7 @@ oGoogle.googleToken = (clientID, clientSecret, redirectUrl) => {
         const oauth2Client = new google.auth.OAuth2(clientID,clientSecret, redirectUrl)
 
         let code = req.query.code
-    
+
         let getTokenAsync = async function () {
             const {tokens} = await oauth2Client.getToken(code)
             oauth2Client.setCredentials(tokens);

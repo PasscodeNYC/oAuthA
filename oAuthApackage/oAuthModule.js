@@ -4,5 +4,6 @@ let oGoogle = require('./Individual Modules/Google.js')
 let oAutha = {}
 
 oAutha.googleLogIn = oGoogle.googleLogIn
+oAutha.googleToken = oGoogle.googleToken
 
 module.exports = oAutha
