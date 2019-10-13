@@ -29,10 +29,16 @@ app.get('/', (req, res, next)=>{
     })
 })
 
-app.get('/redirect', googleController.getTokens,(req, res, next)=>{
-    res.sendFile(path.resolve(__dirname, './redirect.html'), (req, res,err)=>{
-        if (err) console.log(err)
-    })
+app.get('/redirect', 
+    googleController.getTokensTest(
+        '957302849486-n5cqd4lub4me1aq49h3qpl2ctpn27fde.apps.googleusercontent.com',
+        'uWgsX7fooylNUJYJJIN0D92e',
+        'http://localhost:3000/redirect'
+    ),
+    (req, res, next)=>{
+        res.sendFile(path.resolve(__dirname, './redirect.html'), (req, res,err)=>{
+            if (err) console.log(err)
+        })
 })
 
 app.get('/build/bundle.js', (req, res, next) => {
@@ -45,7 +51,17 @@ app.post('/login',
     res.redirect('/redirect')
   });
 
-app.post('/googlelogin', googleController.getAuthUrl, (req, res, next) => {
+app.post('/googlelogin', 
+    googleController.getAuthTest(
+        '957302849486-n5cqd4lub4me1aq49h3qpl2ctpn27fde.apps.googleusercontent.com',
+        'uWgsX7fooylNUJYJJIN0D92e',
+        'http://localhost:3000/redirect',
+        [
+            'https://www.googleapis.com/auth/userinfo.email',
+            'https://www.googleapis.com/auth/userinfo.profile',
+        ]
+    ), 
+    (req, res, next) => {
     console.log('google post request successful - login')
     
     res.redirect(`${res.locals.redirect}`)
