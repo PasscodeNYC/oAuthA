@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const fetch = require('node-fetch')
 const googleController = require('./GoogleOAuth/googleController.js')
+const oAutha = require('oautha')
 const PORT = 3000;
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.static(path.resolve(__dirname, '/build')),(req, res,next)=>{
 
 //routes
 app.get('/', (req, res, next)=>{
+    // oAutha.googleLogIn('please work')
     res.sendFile(path.resolve(__dirname, './index.html'), (req,res,err)=>{
         if (err) console.log(err)
     })
