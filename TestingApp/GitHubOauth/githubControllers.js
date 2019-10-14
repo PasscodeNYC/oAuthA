@@ -3,14 +3,33 @@ const app = express();
 const request = require('superagent');
 
 module.exports = {
-  github(id, secret, userAgent) {
+
+  //  https://github.com/login/oauth/authorize?client_id=006736e6a5d24fec84b8&scope=repo
+
+  githubLogin (clientID, scopes) {
+
     return (req, res, next) => {
-      console.log('yay');
+      let scopesStr = scopes.reduce( (a,b,i) => {
+        //add scope string
+        a+=b
+        //add space after unless it's the very last scope - the index is 1 less than the length
+        if (i < scopes.length-1) a+=`%20`
+        return a
+      },'')
+
+      let baseUrl = `https://github.com/login/oauth/authorize?client_id=${clientID}&scope=${scopesStr}`
+
+      //use the url to redirect the user to the appropriate github login page
+      res.redirect(baseUrl)
+      next()      
+    }
+
+  },
+
+  githubToken (id, secret, userAgent) {
+    return (req, res, next) => {
       const { query } = req;
       const { code } = query;
-
-      console.log('query', query);
-      console.log('code', code);
 
       if (!code) {
         console.log('ERROR, no code returned.');
@@ -42,13 +61,10 @@ module.exports = {
               'User-Agent': userAgent
             })
             .then(result => {
-              console.log('in result in 2nd oauth get request');
-              console.log('response data from github: ', result.body);
-              res.send(result.body);
+              res.locals.gitHubData = req.body
               return next();
             })
             .catch(err => console.log('error: post request failed.', err.stack));
-          // console.log('in get');
         })
         .catch(err => console.log('error: get request failed,', err));
     };

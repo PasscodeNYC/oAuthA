@@ -1,9 +1,21 @@
 //this is the file that will be loaded when our module is required
-let oGoogle = require('./Individual Modules/Google.js')
+let Google = require('./Individual Modules/Google.js')
+let Github = require('./Individual Modules/Github.js')
+let LinkedIn = require('./Individual Modules/LinkedIn.js')
 
 let oAutha = {}
 
-oAutha.googleLogIn = oGoogle.googleLogIn
-oAutha.googleToken = oGoogle.googleToken
+//google
+oAutha.googleLogin = Google.googleLogin
+oAutha.googleToken = Google.googleToken
+
+//github
+oAutha.githubLogin = Github.githubLogin
+oAutha.githubToken = Github.githubToken
+
+//LinkedIn
+oAutha.linkedInLogin = LinkedIn.login
+oAutha.linkedInLogin = LinkedIn.token
+
 
 module.exports = oAutha

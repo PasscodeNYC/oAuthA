@@ -52,7 +52,6 @@ googleController.getTokens = (req, res, next) => {
 }
 
 googleController.getAuthTest = (clientID, clientSecret, redirectUrl, scopes) => {
-    console.log('running get Auth Test')
 
     return function (req, res, next) {
         const oauth2Client = new google.auth.OAuth2(clientID,clientSecret, redirectUrl)

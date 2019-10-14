@@ -2,19 +2,28 @@
 <head>
   <meta charset="UTF-8">
   <title>Authentication Tester</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 </head>
 <body>
-  Login
-  <form method="POST" action='/login'>
-    <input name="username" type="text" placeholder="username"></input>
-    <input name="password" type="password" placeholder="password"></input>
-    <input type='submit' value="login">
-  </form>
-  <button>Put Oauth stuff into params here: <a href='https://github.com/login/oauth/authorize?client_id=006736e6a5d24fec84b8&scope=repo' + >LOGIN WITH GITHUB</a></button>
+    <div class="github-signin">
+        <form action="/githublogin" method="GET">
+            <button>GITHUB</button>
+        </form>
+      </div>
 
-  <div class="g-signin2" data-onsuccess="onSignIn">
+  <div class="google-signin">
     <form action="/googlelogin" method="POST">
-        <button name="googleOauth2" value="login" clientId='123123'>GOOGLE</button>
+      <span class='label'>Sign in with:</span>
+        <button name="googleOauth2" value="login">
+          <span class='icon'></span>
+          <span class='buttonText'></span>
+        </button>
+    </form>
+  </div>
+
+  <div class="fb-signin">
+    <form action="/fblogin" method="POST">
+        <button name="fbOauth2" value="login">FACEBOOK</button>
     </form>
   </div>
 
