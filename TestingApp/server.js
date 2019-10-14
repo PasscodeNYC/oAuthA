@@ -49,8 +49,8 @@ app.get('/build/bundle.js', (req, res, next) => {
 });
 
   //GitHub
-const CLIENT_ID = '006736e6a5d24fec84b8';
-const CLIENT_SECRET = '5948964d94a3a5c596817bee02a8a01e6e929451';
+const CLIENT_ID = 'YOUR CLIENT ID HERE';
+const CLIENT_SECRET = 'YOUR CLIENT SECRET HERE';
 const userAgent = 'tom';
 
 app.get('/githublogin', githubController.githubLogin(CLIENT_ID, ['user', 'public_repo']), (req, res, next) => {
