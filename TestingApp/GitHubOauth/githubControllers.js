@@ -4,7 +4,6 @@ const request = require('superagent');
 
 module.exports = {
 
-  //  https://github.com/login/oauth/authorize?client_id=006736e6a5d24fec84b8&scope=repo
 
   githubLogin (clientID, scopes) {
 
