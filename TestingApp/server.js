@@ -10,18 +10,32 @@ const PORT = 3000;
 
 const app = express();
 
+const githubController = require('./GitHubOauth/githubControllers');
+
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser())
+app.use(cookieParser());
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-
-app.use(express.static(path.resolve(__dirname, '/build')),(req, res,next)=>{
-    // console.log('served static bundle')
-    next();
-})
+app.use(express.static(path.resolve(__dirname, '/build')), (req, res, next) => {
+  // console.log('served static bundle')
+  next();
+});
 
 //routes
+app.get('/', (req, res, next) => {
+  // oAutha.googleLogIn('please work')
+  res.sendFile(path.resolve(__dirname, './index.html'), (req, res, err) => {
+    if (err) console.log(err);
+  });
+});
+
+app.get('/redirect', googleController.getTokens, (req, res, next) => {
+  res.sendFile(path.resolve(__dirname, './redirect.html'), (req, res, err) => {
+    if (err) console.log(err);
+  });
+});
+
 app.get('/', (req, res, next)=>{
     // oAutha.googleLogIn('please work')
     res.sendFile(path.resolve(__dirname, './index.html'), (req,res,err)=>{
@@ -29,10 +43,10 @@ app.get('/', (req, res, next)=>{
     })
 })
 
-app.get('/build/bundle.js', (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, './build/bundle.js'))
-})
 
+app.get('/build/bundle.js', (req, res, next) => {
+  res.sendFile(path.resolve(__dirname, './build/bundle.js'));
+});
 
   //GitHub
 const CLIENT_ID = '006736e6a5d24fec84b8';
@@ -52,6 +66,16 @@ app.get('/oauth', githubController.githubToken(CLIENT_ID, CLIENT_SECRET, userAge
 })
 
 //Google
+
+app.post('/login', (req, res, next) => {
+  console.log('post request successful - login');
+  res.redirect('/redirect');
+});
+
+app.post('/googlelogin', googleController.getAuthUrl, (req, res, next) => {
+  console.log('google post request successful - login');
+})
+
 app.post('/googlelogin', 
     googleController.getAuthTest(
         '957302849486-n5cqd4lub4me1aq49h3qpl2ctpn27fde.apps.googleusercontent.com',
@@ -66,7 +90,7 @@ app.post('/googlelogin',
     console.log('google post request successful - login')
     
     res.redirect(`${res.locals.redirect}`)
-  });
+  })
 
   app.get('/redirect', 
   googleController.getTokensTest(
@@ -80,11 +104,10 @@ app.post('/googlelogin',
       })
 })
 
-
-
-
 app.use('*', (req,res) => {
     res.status(404).send('Not Found');
   });
 
-app.listen(PORT, ()=>{ console.log(`Listening on port ${PORT}...`); });
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}...`);
+})

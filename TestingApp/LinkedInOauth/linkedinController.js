@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+const express = require('express');
+const app = express();
+>>>>>>> 486a7065dbcdfa5b533dccba53a84647f69f0cc7
 const request = require('superagent');
 
 module.exports = {
@@ -13,7 +18,11 @@ module.exports = {
         })
         .catch(err => {
           if (err) res.status(500).sent('SERVER ERROR');
+<<<<<<< HEAD
           console.log('LOGIN GET REQUEST ERROR');
+=======
+          console.log('LOGIN GET REQUREST ERROR');
+>>>>>>> 486a7065dbcdfa5b533dccba53a84647f69f0cc7
         });
     };
   },
@@ -42,4 +51,8 @@ module.exports = {
         });
     };
   }
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 486a7065dbcdfa5b533dccba53a84647f69f0cc7
